@@ -11,7 +11,9 @@ const Navbar = (props: Props) => {
 			<input id='my-drawer' type='checkbox' className='drawer-toggle' />
 			<div className='drawer-content'>
 				{/* Page content here */}
-				<label htmlFor='my-drawer' className='btn bg-white text-black font-bold rounded-md hover:bg-white/80'>
+				<label
+					htmlFor='my-drawer'
+					className='btn bg-white text-black font-bold rounded-md hover:bg-white/80 duration-500'>
 					<LayoutDashboard />
 				</label>
 			</div>
@@ -29,7 +31,7 @@ const Navbar = (props: Props) => {
 								<li>
 									<Link
 										href={`/`}
-										className={`rounded-md bg-white hover:bg-white/80 text-black text-lg flex flex-row items-center justify-center`}>
+										className={`rounded-md bg-white hover:bg-white/80 text-black text-lg flex flex-row items-center justify-center duration-500`}>
 										<FcGoogle />
 										Continue with Google
 									</Link>
@@ -37,7 +39,7 @@ const Navbar = (props: Props) => {
 								<li>
 									<Link
 										href={`/`}
-										className={`rounded-md bg-[#24292e] hover:bg-[#24292e]/80 text-lg flex flex-row items-center justify-center`}>
+										className={`rounded-md bg-[#24292e] hover:bg-[#24292e]/60 text-lg flex flex-row items-center justify-center duration-500`}>
 										<FaGithub />
 										Continue with Github
 									</Link>
