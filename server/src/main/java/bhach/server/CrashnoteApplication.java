@@ -1,0 +1,14 @@
+package bhach.server;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication()
+public class CrashnoteApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(CrashnoteApplication.class, args);
+	}
+
+}
+
