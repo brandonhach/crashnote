@@ -17,11 +17,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={`${inter.className} h-screen w-screen flex flex-row p-4`}>
-				<div className='w-1/6 h-full'>
+			<body className={`${inter.className} h-screen w-screen flex flex-row p-4 overflow-y-hidden`}>
+				<div className='absolute  w-1/6 h-full'>
 					<Navbar></Navbar>
 				</div>
-				<div className='w-5/6 h-full'> {children}</div>
+				<div className='w-full h-full'> {children}</div>
 			</body>
 		</html>
 	);
