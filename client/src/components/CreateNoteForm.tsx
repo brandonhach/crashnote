@@ -40,7 +40,7 @@ const CreateNoteForm = (props: Props) => {
 			}
 			const result = await res.json();
 			SuccessToast('Your notes have been published and saved.');
-			localStorage.clear;
+			localStorage.removeItem('editorContent');
 			console.log(result);
 		} catch (error) {
 			console.error('Unexpected Error when attempting to create crashnote:', error);
