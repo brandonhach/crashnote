@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ChevronsUpDown, LayoutDashboard, Pencil, Settings, Star } from 'lucide-react';
+import { ChevronsUpDown, LayoutDashboard, LogOut, Pencil, Settings, Star } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 type Props = {};
@@ -21,11 +21,13 @@ const Navbar = (props: Props) => {
 				<label htmlFor='my-drawer' aria-label='close sidebar' className='drawer-overlay'></label>
 				<ul className='relative menu bg-base-200 text-base-content min-h-full w-80 p-4'>
 					{/* Sidebar content here */}
-					<div className='flex items-center justify-center'>
-						<h1 className='font-extrabold text-4xl'>CrashNote.</h1>
-					</div>
+					<li className='flex items-center justify-center'>
+						<Link href={'/'} className='font-extrabold text-4xl'>
+							CrashNote.
+						</Link>
+					</li>
 					<div className='divider'></div>
-					{true ? (
+					{false ? (
 						<>
 							<div className='flex flex-col gap-4'>
 								<li>
@@ -49,24 +51,42 @@ const Navbar = (props: Props) => {
 					) : (
 						<>
 							{/* User Info */}
-							<li>
-								<div className='flex w-full flex-col items-start gap-4'>
-									<div className='flex items-center gap-4'>
-										<div className='avatar'>
-											<div className='mask mask-squircle w-12'>
-												<img src='https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp' />
+							<div className='dropdown dropdown-right'>
+								<li tabIndex={0} role='button'>
+									<div className='flex w-full flex-col items-start gap-4'>
+										<div className='flex items-center gap-4'>
+											<div className='avatar'>
+												<div className='mask mask-squircle w-12'>
+													<img src='https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp' />
+												</div>
+											</div>
+											<div className='flex flex-col gap-1'>
+												<div className='h-4 w-fit'>Brandon Hach</div>
+												<div className='h-4 w-fit text-neutral-500'>brandon@gmail.com</div>
+											</div>
+											<div className='place-items-end'>
+												<ChevronsUpDown className='text-neutral-500' />
 											</div>
 										</div>
-										<div className='flex flex-col gap-1'>
-											<div className='h-4 w-fit'>Brandon Hach</div>
-											<div className='h-4 w-fit text-neutral-500'>brandon@gmail.com</div>
-										</div>
-										<div className='place-items-end'>
-											<ChevronsUpDown className='text-neutral-500' />
-										</div>
 									</div>
-								</div>
-							</li>{' '}
+								</li>{' '}
+								<ul
+									tabIndex={0}
+									className='dropdown-content menu bg-base-200 rounded-xl z-[1] w-1/2 border-[1px] border-base-100'>
+									<li>
+										<Link href={'/'}>
+											<LogOut></LogOut>
+											<p className=''>Sign Out</p>
+										</Link>
+									</li>
+									<li>
+										<Link href={'/'}>
+											<Settings></Settings>
+											<p className=''>Settings</p>
+										</Link>
+									</li>
+								</ul>
+							</div>
 							<div className='divider'></div>
 							<li>
 								<Link href={`/create`} className={`text-xl flex flex-row`}>
@@ -78,12 +98,6 @@ const Navbar = (props: Props) => {
 								<Link href={`/favorites`} className={`text-xl flex flex-row`}>
 									<Star />
 									<div className='divider'></div>Favorites
-								</Link>
-							</li>
-							<li>
-								<Link href={`/settings`} className={`text-xl flex flex-row`}>
-									<Settings />
-									<div className='divider'></div>Settings
 								</Link>
 							</li>
 						</>
