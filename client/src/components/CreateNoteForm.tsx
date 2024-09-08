@@ -25,6 +25,7 @@ const CreateNoteForm = (props: Props) => {
 	const processForm = async (data: CrashNote) => {
 		const formData = new FormData();
 		formData.append('title', data.title);
+		formData.append('description', data.description);
 		formData.append('tags', data.tags);
 		formData.append('editorContent', data.editorContent);
 		formData.append('file', data.file);
@@ -109,7 +110,12 @@ const CreateNoteForm = (props: Props) => {
 				<input
 					{...register('title')}
 					placeholder='Title here...'
-					className='input input-bordered w-3/4 rounded-md font-extrabold'
+					className='input input-bordered w-1/4 rounded-md font-extrabold'
+				/>
+				<input
+					{...register('description')}
+					placeholder='Description here...'
+					className='input input-bordered w-2/4 rounded-md font-extrabold'
 				/>
 				<input
 					{...register('tags')}
