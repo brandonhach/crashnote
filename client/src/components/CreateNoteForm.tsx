@@ -2,7 +2,7 @@
 import { CrashNote, crashNoteSchema } from '@/types/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useFormState } from 'react-hook-form';
 import { ErrToast } from './Toasts/ErrToast';
 import { Block } from '@blocknote/core';
 import Editor, { loadFromStorage } from './Editor';
@@ -14,11 +14,13 @@ const CreateNoteForm = (props: Props) => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		control,
+		formState: { errors, isSubmitting },
 		setValue,
-	} = useForm<CrashNote>({
-		resolver: zodResolver(crashNoteSchema),
-	});
+		trigger,
+	} = useForm<CrashNote>({ mode: 'onChange', resolver: zodResolver(crashNoteSchema) });
+
+	const { isValid } = useFormState({ control });
 
 	const processForm = async (data: CrashNote) => {
 		const formData = new FormData();
@@ -38,6 +40,7 @@ const CreateNoteForm = (props: Props) => {
 			}
 			const result = await res.json();
 			SuccessToast('Your notes have been published and saved.');
+			localStorage.clear;
 			console.log(result);
 		} catch (error) {
 			console.error('Unexpected Error when attempting to create crashnote:', error);
@@ -78,6 +81,27 @@ const CreateNoteForm = (props: Props) => {
 		}
 	};
 
+	const [validationFailed, setValidationFailed] = useState(false);
+
+	const validateAndProceed = async () => {
+		// Trigger validation for all fields
+		const result = trigger();
+
+		if (await result) {
+			// If validation passes, proceed to the next tab
+			setValidationFailed(false);
+		} else {
+			// If validation fails, update state to disable the button
+			setValidationFailed(true);
+		}
+	};
+
+	useEffect(() => {
+		if (isValid) {
+			setValidationFailed(false);
+		}
+	}, [isValid]);
+
 	return (
 		<form onSubmit={handleSubmit(processForm, onInvalid)} className='flex flex-col size-full'>
 			<div className='w-full h-14 flex flex-row justify-start gap-2 items-center'>
@@ -97,8 +121,18 @@ const CreateNoteForm = (props: Props) => {
 					onChange={onFileChange}
 					className='file-input file-input-bordered w-full max-w-xs rounded-md font-extrabold'
 				/>
-				<button type='submit' className='btn btn-sm rounded-md bg-success hover:bg-success/80 duration-500'>
-					Save
+				<button
+					onClick={validateAndProceed}
+					disabled={validationFailed}
+					type='submit'
+					className='btn btn-sm rounded-md bg-success hover:bg-success/80 duration-500 min-w-20'>
+					{isSubmitting ? (
+						<>
+							<span className='loading loading-spinner loading-sm'></span>
+						</>
+					) : (
+						<p>Publish</p>
+					)}
 				</button>
 			</div>
 			<div className='flex-grow w-full'>

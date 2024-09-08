@@ -8,10 +8,10 @@ const fileImageSchema = z
 	.refine((file) => file.size <= MAX_UPLOAD_SIZE, `Image size must be less than 5 MB.`)
 	.refine((file) => ACCEPTED_FILE_TYPES.includes(file.type), `.jpg .png .gif are only allowed.`);
 
-const jsonBlockSchema = z.string().min(3, 'Must have notes written.');
+const jsonBlockSchema = z.string().min(1, 'Must have notes written.');
 
 export const crashNoteSchema = z.object({
-	title: z.string().min(3, 'Title must be at least 3 characters.'),
+	title: z.string().min(1, 'Title is required.'),
 	tags: z.string().min(1, 'Tags are required.'),
 	file: fileImageSchema,
 	editorContent: jsonBlockSchema,
