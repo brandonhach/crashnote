@@ -1,10 +1,7 @@
 'use client';
 
 import CreateNoteForm from '@/components/CreateNoteForm';
-import dynamic from 'next/dynamic';
 import { Toaster } from 'react-hot-toast';
-
-const Editor = dynamic(() => import('@/components/Editor'), { ssr: false });
 
 const CreateNote = () => {
 	return (
