@@ -24,7 +24,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Why watch a crash course video or go through a course without knowing anything about the class? CrashNote helps solve your problem by hosting outlined notes curated by real people. You can quickly gain context and stop going in with no prior knowledge. 
+Why watch a crash course video or go through a course without knowing anything about the class? CrashNote helps solve your problem by hosting outlined notes curated by real people. You can quickly gain context and stop going in naked, with no prior knowledge!
 
 ### Built With
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
