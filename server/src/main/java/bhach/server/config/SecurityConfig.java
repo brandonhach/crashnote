@@ -16,8 +16,14 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         // Any request that comes in is authenticated
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated()).oauth2Login(oauth -> oauth.defaultSuccessUrl("/api/hello", true));
+        // http.csrf(AbstractHttpConfigurer::disable)
+        //         .authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
+        //         .oauth2Login(oauth -> oauth.defaultSuccessUrl("/api/hello", true));
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .anyRequest().permitAll()
+            );
         return http.build();
     }
 }
