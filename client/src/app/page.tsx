@@ -19,11 +19,18 @@ export default function Home() {
 				</form>
 			</div>
 			{/* Infinite Scroll Content */}
-			<div className='w-5/6 flex-grow grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 auto-rows-auto overflow-y-scroll overflow-x-hidden rounded-xl place-items-center place-content-start gap-0 md:gap-4'>
+			<div className='w-5/6 flex-grow grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 auto-rows-auto overflow-y-scroll overflow-x-hidden gap-0 md:gap-4 place-items-baseline place-content-start pr-10'>
 				<NoteCard></NoteCard>
 				<NoteCard></NoteCard>
 				<NoteCard></NoteCard>
 				<NoteCard></NoteCard>
+				<NoteCard></NoteCard>
+				<NoteCard></NoteCard>
+				<NoteCard></NoteCard> <NoteCard></NoteCard>
+				<NoteCard></NoteCard>
+				<NoteCard></NoteCard>
+				<NoteCard></NoteCard>
+				<NoteCard></NoteCard> <NoteCard></NoteCard>
 				<NoteCard></NoteCard>
 				<NoteCard></NoteCard>
 				<NoteCard></NoteCard>
