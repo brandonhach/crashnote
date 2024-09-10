@@ -1,54 +1,67 @@
 services:
-    frontend:
+    # frontend:
+    #     build:
+    #         context: ./client
+    #     ports:
+    #         - '3000:3000'
+    #     environment:
+    #         NEXT_PUBLIC_API_BASE_URL: https://localhost:8000
+    #     volumes:
+    #         - ./client/package.json:/client/package.json
+    #         - ./client/node_modules:/client/node_modules
+    #     command:
+    #         - /bin/sh
+    #         - -c
+    #         - |
+    #             echo "Starting client..."
+    #             npx prisma generate
+    #             npm run dev
+    #     develop:
+    #         watch:
+    #             - action: sync
+    #               path: ./client/src/
+    #               target: /client/src
+    #             - action: sync
+    #               path: ./client/public/
+    #               target: /client/public
+    #             - action: sync
+    #               path: ./client/package.json
+    #               target: /client/package.json
+    #             - action: sync
+    #               path: ./client/tailwind.config.ts
+    #               target: /client/tailwind.config.ts
+    #             - action: sync
+    #               path: ./client/next.config.mjs
+    #               target: /client/next.config.mjs
+
+    springboot:
         build:
-            context: ./client
+            context: ./server
         ports:
-            - '3000:3000'
-        environment:
-            NEXT_PUBLIC_API_BASE_URL: https://localhost:8000
+            - '8080:8080'
+        env_file:
+            - ./server/.env
         volumes:
-            - ./client/package.json:/client/package.json
-            - ./client/node_modules:/client/node_modules
-        command:
-            - /bin/sh
-            - -c
-            - |
-                echo "Starting client..."
-                npx prisma generate
-                npm run dev
+            - ./server:/server
+            - ./server/pom.xml:/server/pom.xml
+            - ./server/.mvn:/server/.mvn
+            - ./server/mvnw:/server/mvnw
+            - ~/.m2:/root/.m2
         develop:
             watch:
                 - action: sync
-                  path: ./client/src/
-                  target: /client/src
-                - action: sync
-                  path: ./client/public/
-                  target: /client/public
-                - action: sync
-                  path: ./client/package.json
-                  target: /client/package.json
-                - action: sync
-                  path: ./client/tailwind.config.ts
-                  target: /client/tailwind.config.ts
-
-    # springboot:
-    #     build:
-    #         context: ./server
-    #     ports:
-    #         - '8080:8080'
-    #     environment:
-    #         - SPRING_PROFILES_ACTIVE=dev
-    #     volumes:
-    #         - ./server:/server
-    #         - ./server/pom.xml:/server/pom.xml
-    #         - ./server/.mvn:/server/.mvn
-    #         - ./server/mvnw:/server/mvnw
-    #         - ~/.m2:/root/.m2
-    # develop:
-    #     watch:
-    #         - action: sync
-    #           path: ./server/
-    #           target: /server/
-    #           ignore:
-    #               - .*.tmp
-    #               - .*.class
+                  path: ./server/
+                  target: /server/
+                  ignore:
+                      - .*.tmp
+                      - .*.class
+    postgres:
+        image: postgres:15-alpine
+        ports:
+            - '5432:5432'
+        env_file:
+            - ./server/.env
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+volumes:
+    postgres_data:
