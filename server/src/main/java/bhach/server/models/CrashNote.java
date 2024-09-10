@@ -15,10 +15,16 @@ public class CrashNote {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     private String title;
+
     private String description;
+
     private String tags;
+
+    @Column(columnDefinition = "jsonb")
     private String editorContent;
+
     @Column(name = "createdAt", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
