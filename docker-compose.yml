@@ -1,38 +1,38 @@
 services:
-    # frontend:
-    #     build:
-    #         context: ./client
-    #     ports:
-    #         - '3000:3000'
-    #     environment:
-    #         NEXT_PUBLIC_API_BASE_URL: https://localhost:8000
-    #     volumes:
-    #         - ./client/package.json:/client/package.json
-    #         - ./client/node_modules:/client/node_modules
-    #     command:
-    #         - /bin/sh
-    #         - -c
-    #         - |
-    #             echo "Starting client..."
-    #             npx prisma generate
-    #             npm run dev
-    #     develop:
-    #         watch:
-    #             - action: sync
-    #               path: ./client/src/
-    #               target: /client/src
-    #             - action: sync
-    #               path: ./client/public/
-    #               target: /client/public
-    #             - action: sync
-    #               path: ./client/package.json
-    #               target: /client/package.json
-    #             - action: sync
-    #               path: ./client/tailwind.config.ts
-    #               target: /client/tailwind.config.ts
-    #             - action: sync
-    #               path: ./client/next.config.mjs
-    #               target: /client/next.config.mjs
+    frontend:
+        build:
+            context: ./client
+        ports:
+            - '3000:3000'
+        environment:
+            NEXT_PUBLIC_API_BASE_URL: https://localhost:8080
+        volumes:
+            - ./client/package.json:/client/package.json
+            - ./client/node_modules:/client/node_modules
+        command:
+            - /bin/sh
+            - -c
+            - |
+                echo "Starting client..."
+                npx prisma generate
+                npm run dev
+        develop:
+            watch:
+                - action: sync
+                  path: ./client/src/
+                  target: /client/src
+                - action: sync
+                  path: ./client/public/
+                  target: /client/public
+                - action: sync
+                  path: ./client/package.json
+                  target: /client/package.json
+                - action: sync
+                  path: ./client/tailwind.config.ts
+                  target: /client/tailwind.config.ts
+                - action: sync
+                  path: ./client/next.config.mjs
+                  target: /client/next.config.mjs
 
     springboot:
         build:
