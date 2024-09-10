@@ -2,13 +2,20 @@ package bhach.server.controllers;
 
 import bhach.server.models.CrashNote;
 import bhach.server.repositories.CrashNoteRepository;
+import bhach.server.services.CrashNoteService;
+
 import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/crashnote")
 public class CrashNoteController {
+    @Autowired
+    private CrashNoteService crashNoteService;
     public final CrashNoteRepository crashNoteRepository;
 
     public CrashNoteController(CrashNoteRepository crashNoteRepository) {
@@ -39,12 +46,14 @@ public class CrashNoteController {
     }
 
     /**
-     * Fetch all notes from CrashNote table 
+     * Fetch all notes from CrashNote table
+     * Pagination included. 
      * @return List<CrashNote> 
      */
     @GetMapping("/notes")
-    public List<CrashNote> getAllNotes() {
-        return crashNoteRepository.findAll();
+    public ResponseEntity<Page<CrashNote>> getAllNotes(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Page<CrashNote> paginatedPage = crashNoteService.getAllNotesByPagination(page, size);
+        return ResponseEntity.ok(paginatedPage);
     }
 
     /**
@@ -81,18 +90,12 @@ public class CrashNoteController {
      * @return List of notes
      */
     @GetMapping("/search/{query}")
-    public ResponseEntity<Map<String, Object>> searchNoteByQuery(@PathVariable String query) {
-        try {
-            Map<String, Object> response = new HashMap<>();
-            response.put("status", "success");
-            response.put("data", 1);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("status", "error");
-            errorResponse.put("message", "Failed to save CrashNote: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
-        }
+    public ResponseEntity<Page<CrashNote>> searchNotes(
+            @RequestParam String query,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Page<CrashNote> results = crashNoteService.searchNotesPagination(query, page, size);
+        return ResponseEntity.ok(results);
     }
 }
 

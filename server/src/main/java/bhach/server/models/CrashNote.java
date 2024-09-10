@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -18,9 +19,16 @@ public class CrashNote {
     private String description;
     private String tags;
     private String editorContent;
+    @Column(name = "createdAt", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     // Add validation using Jakarta validation
-    public CrashNote() {}
+    public CrashNote() {
+        onCreate();
+    }
 
-   
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 }
