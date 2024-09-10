@@ -7,10 +7,13 @@ import { ErrToast } from './Toasts/ErrToast';
 import { Block } from '@blocknote/core';
 import Editor, { loadFromStorage } from './Editor';
 import { SuccessToast } from './Toasts/SuccessToast';
+import { apiBaseUrl } from '@/config/api';
+import { useRouter } from 'next/navigation';
 
 type Props = {};
 
 const CreateNoteForm = (props: Props) => {
+	const router = useRouter();
 	const {
 		register,
 		handleSubmit,
@@ -23,16 +26,20 @@ const CreateNoteForm = (props: Props) => {
 	const { isValid } = useFormState({ control });
 
 	const processForm = async (data: CrashNote) => {
-		const formData = new FormData();
-		formData.append('title', data.title);
-		formData.append('description', data.description);
-		formData.append('tags', data.tags);
-		formData.append('editorContent', data.editorContent);
-		formData.append('file', data.file);
+		const jsonData = {
+			title: data.title,
+			description: data.description,
+			tags: data.tags,
+			editorContent: data.editorContent,
+		};
+		// formData.append('file', data.file);
 		try {
-			const res = await fetch('/api/addCrashNote', {
+			const res = await fetch(`${apiBaseUrl}/api/crashnote/create`, {
 				method: 'POST',
-				body: formData,
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(jsonData),
 			});
 
 			if (!res.ok) {
@@ -43,6 +50,7 @@ const CreateNoteForm = (props: Props) => {
 			SuccessToast('Your notes have been published and saved.');
 			localStorage.removeItem('editorContent');
 			console.log(result);
+			router.push(`/note/${result.data.id}`);
 		} catch (error) {
 			console.error('Unexpected Error when attempting to create crashnote:', error);
 		}
