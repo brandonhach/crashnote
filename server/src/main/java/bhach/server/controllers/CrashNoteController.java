@@ -62,9 +62,10 @@ public class CrashNoteController {
      * @return CrashNote obj
      */
     @GetMapping("/note/{id}")
-    public ResponseEntity<Map<String, Object>> getNoteById(@PathVariable UUID id) {
+    public ResponseEntity<Map<String, Object>> getNoteById(@PathVariable String id) {
         try {
-            Optional<CrashNote> noteOptional = crashNoteRepository.findById(id);
+            UUID uuid = UUID.fromString(id); 
+            Optional<CrashNote> noteOptional = crashNoteRepository.findById(uuid);
             if (noteOptional.isPresent()) {
                 Map<String, Object> response = new HashMap<>();
                 response.put("status", "success");
