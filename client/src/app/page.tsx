@@ -1,7 +1,21 @@
 import NoteCard from '@/components/NoteCard';
-import Image from 'next/image';
+import { apiBaseUrl } from '@/config/api';
+import { redirect } from 'next/navigation';
 
-export default function Home() {
+export async function getPaginationNote(pageNum: number) {
+	const response = await fetch(`${apiBaseUrl}/api/crashnote/notes?page=${pageNum}`, {
+		method: 'GET',
+	});
+	if (!response.ok) {
+		redirect('/');
+	}
+	const data = await response.json();
+	return data;
+}
+
+export default async function Home() {
+	const { content } = await getPaginationNote(1);
+
 	return (
 		<div className='size-full flex flex-col items-end'>
 			{/* Search */}
@@ -20,21 +34,15 @@ export default function Home() {
 			</div>
 			{/* Infinite Scroll Content */}
 			<div className='w-5/6 flex-grow grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 auto-rows-auto overflow-y-scroll overflow-x-hidden gap-0 md:gap-4 place-items-baseline place-content-start pr-10'>
-				<NoteCard></NoteCard>
-				<NoteCard></NoteCard>
-				<NoteCard></NoteCard>
-				<NoteCard></NoteCard>
-				<NoteCard></NoteCard>
-				<NoteCard></NoteCard>
-				<NoteCard></NoteCard> <NoteCard></NoteCard>
-				<NoteCard></NoteCard>
-				<NoteCard></NoteCard>
-				<NoteCard></NoteCard>
-				<NoteCard></NoteCard> <NoteCard></NoteCard>
-				<NoteCard></NoteCard>
-				<NoteCard></NoteCard>
-				<NoteCard></NoteCard>
-				<NoteCard></NoteCard>
+				{content.map((noteData: any) => {
+					const note = {
+						id: noteData.id,
+						title: noteData.title,
+						description: noteData.description,
+					};
+
+					return <NoteCard key={note.id} note={note} />;
+				})}
 			</div>
 		</div>
 	);

@@ -4,11 +4,10 @@ import Image from 'next/image';
 
 type Props = {};
 
-const NoteCard = (props: Props) => {
-	const index = 1;
+const NoteCard = ({ note }: any) => {
 	return (
 		<Link
-			href={`note/${index}`}
+			href={`note/${note.id}`}
 			className='card bg-base-200/90 size-fit shadow-xl rounded-xl hover:cursor-pointer hover:bg-base-200/10 duration-500 w-full'>
 			<figure className='relative w-full h-44'>
 				<Image
@@ -21,7 +20,7 @@ const NoteCard = (props: Props) => {
 			</figure>
 			<div className='card-body'>
 				<div className='relative card-title'>
-					<h1>React Crash Course</h1>
+					<h1>{note.title}</h1>
 					<div className='absolute avatar right-0'>
 						<div className='mask mask-squircle w-10'>
 							<Image
@@ -34,7 +33,7 @@ const NoteCard = (props: Props) => {
 						</div>
 					</div>
 				</div>
-				<p>For those who wants start building projects right away</p>
+				<p>{note.description}</p>
 				<div className='card-actions justify-end'>
 					<div className='badge badge-secondary'>React.js</div>
 					<div className='badge badge-secondary'>TypeScript</div>
