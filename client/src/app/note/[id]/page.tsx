@@ -19,13 +19,18 @@ export async function getNoteData(id: string) {
 
 const Note = async ({ params }: { params: { id: string } }) => {
 	const { data } = await getNoteData(params.id);
+	const note = {
+		title: data.title,
+		description: data.description,
+	};
+
 	console.log(data);
 	const Document = dynamic(() => import('@/components/Document'), { ssr: false });
 	return (
 		<div className='p-4 size-full flex flex-row overflow-x-hidden'>
 			{/* Content  */}
 			<div className='w-1/6 h-full flex flex-col items-center justify-center'>
-				<NoteProfileCard></NoteProfileCard>
+				<NoteProfileCard note={note}></NoteProfileCard>
 			</div>
 			<div className='w-5/6 flex-grow rounded-xl bg-[#1f1f1f]'>
 				<Document data={data}></Document>

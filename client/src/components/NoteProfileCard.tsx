@@ -1,8 +1,13 @@
 import React from 'react';
 
-type Props = {};
+interface NoteProps {
+	data: {
+		title: string;
+		description: string;
+	};
+}
 
-const NoteProfileCard = (props: Props) => {
+const NoteProfileCard = ({ note }: any) => {
 	return (
 		<div className='card bg-base-100 w-full p-2 shadow-xl'>
 			<figure className='px-10 pt-10'>
@@ -13,8 +18,8 @@ const NoteProfileCard = (props: Props) => {
 				/>
 			</figure>
 			<div className='card-body items-center text-center'>
-				<h2 className='card-title'>Shoes!</h2>
-				<p>If a dog chews shoes whose shoes does he choose?</p>
+				<h2 className='card-title'>{note.title}</h2>
+				<p>{note.description}</p>
 			</div>
 		</div>
 	);
