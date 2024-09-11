@@ -4,7 +4,6 @@ import '@blocknote/core/fonts/inter.css';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
 import { useEffect, useMemo, useState } from 'react';
-import styles from '@/components/css/editor.module.css';
 
 interface EditorProps {
 	onChange: (blocks: Block[]) => void;
