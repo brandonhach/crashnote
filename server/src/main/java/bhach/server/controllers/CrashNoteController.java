@@ -51,7 +51,7 @@ public class CrashNoteController {
      * @return List<CrashNote> 
      */
     @GetMapping("/notes")
-    public ResponseEntity<Page<CrashNote>> getAllNotes(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<Page<CrashNote>> getAllNotes(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size) {
         Page<CrashNote> paginatedPage = crashNoteService.getAllNotesByPagination(page, size);
         return ResponseEntity.ok(paginatedPage);
     }
