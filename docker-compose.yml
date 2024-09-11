@@ -5,7 +5,7 @@ services:
         ports:
             - '3000:3000'
         environment:
-            NEXT_PUBLIC_API_BASE_URL: https://localhost:8080
+            NEXT_PUBLIC_API_BASE_URL: http://springboot:8080
         volumes:
             - ./client/package.json:/client/package.json
             - ./client/node_modules:/client/node_modules
@@ -33,7 +33,8 @@ services:
                 - action: sync
                   path: ./client/next.config.mjs
                   target: /client/next.config.mjs
-
+        depends_on:
+            - springboot
     springboot:
         build:
             context: ./server
