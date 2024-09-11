@@ -77,7 +77,6 @@ const CreateNoteForm = (props: Props) => {
 		setEditorContent(jsonString);
 		setValue('editorContent', jsonString);
 		localStorage.setItem('editorContent', jsonString);
-		console.log(editorContent);
 	};
 
 	const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
