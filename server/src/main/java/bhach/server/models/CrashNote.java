@@ -22,7 +22,7 @@ public class CrashNote {
 
     private String tags;
 
-    @Column(columnDefinition = "jsonb")
+    @Column(columnDefinition = "text")
     private String editorContent;
 
     @Column(name = "createdAt", nullable = false, updatable = false)
