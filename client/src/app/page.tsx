@@ -1,9 +1,9 @@
 import NoteCard from '@/components/NoteCard';
-import { apiBaseUrl } from '@/config/api';
+import { apiGET } from '@/config/api';
 import { redirect } from 'next/navigation';
 
 export async function getPaginationNote(pageNum: number) {
-	const response = await fetch(`${apiBaseUrl}/api/crashnote/notes?page=${pageNum}`, {
+	const response = await fetch(`${apiGET}/api/crashnote/notes`, {
 		method: 'GET',
 	});
 	if (!response.ok) {

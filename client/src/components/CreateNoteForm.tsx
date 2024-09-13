@@ -7,7 +7,7 @@ import { ErrToast } from './Toasts/ErrToast';
 import { Block } from '@blocknote/core';
 import Editor, { loadFromStorage } from './Editor';
 import { SuccessToast } from './Toasts/SuccessToast';
-import { apiBaseUrl } from '@/config/api';
+import { apiPOST } from '@/config/api';
 import { useRouter } from 'next/navigation';
 
 type Props = {};
@@ -31,7 +31,7 @@ const CreateNoteForm = (props: Props) => {
 
 		// formData.append('file', data.file);
 		try {
-			const res = await fetch(`${apiBaseUrl}/api/crashnote/create`, {
+			const res = await fetch(`${apiPOST}/api/crashnote/create`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

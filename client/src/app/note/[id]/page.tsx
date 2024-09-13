@@ -1,13 +1,13 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import NoteProfileCard from '@/components/NoteProfileCard';
-import { apiBaseUrl } from '@/config/api';
+import { apiGET } from '@/config/api';
 import { redirect } from 'next/navigation';
 
 type Props = {};
 
 export async function getNoteData(id: string) {
-	const response = await fetch(`${apiBaseUrl}/api/crashnote/note/${id}`, {
+	const response = await fetch(`${apiGET}/api/crashnote/note/${id}`, {
 		method: 'GET',
 	});
 	if (!response.ok) {
