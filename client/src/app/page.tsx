@@ -1,10 +1,11 @@
-import NoteCard from '@/components/NoteCard';
+import NotePagination from '@/components/NotePagination';
 import { apiGET } from '@/config/api';
 import { redirect } from 'next/navigation';
 
-export async function getPaginationNote(pageNum: number) {
-	const response = await fetch(`${apiGET}/api/crashnote/notes`, {
+export async function getPaginationNote(query: string, pageNum: number) {
+	const response = await fetch(`${apiGET}/api/crashnote/search/note?query=${query}&page=${pageNum}`, {
 		method: 'GET',
+		credentials: 'include',
 	});
 	if (!response.ok) {
 		redirect('/');
@@ -14,8 +15,8 @@ export async function getPaginationNote(pageNum: number) {
 }
 
 export default async function Home() {
-	const { content } = await getPaginationNote(1);
-
+	const data = await getPaginationNote('', 0);
+	const initialSearch = '';
 	return (
 		<div className='size-full flex flex-col items-end'>
 			{/* Search */}
@@ -32,17 +33,9 @@ export default async function Home() {
 					</button>
 				</form>
 			</div>
-			{/* Infinite Scroll Content */}
+			{/* Infinite Scroll Content */}{' '}
 			<div className='w-5/6 flex-grow grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 auto-rows-auto overflow-y-scroll overflow-x-hidden gap-0 md:gap-4 place-items-baseline place-content-start pr-10'>
-				{content.map((noteData: any) => {
-					const note = {
-						id: noteData.id,
-						title: noteData.title,
-						description: noteData.description,
-					};
-
-					return <NoteCard key={note.id} note={note} />;
-				})}
+				<NotePagination search={initialSearch} data={data}></NotePagination>
 			</div>
 		</div>
 	);
