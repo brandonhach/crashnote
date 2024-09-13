@@ -4,8 +4,6 @@ services:
             context: ./client
         ports:
             - '3000:3000'
-        environment:
-            NEXT_PUBLIC_API_BASE_URL: http://springboot:8080
         volumes:
             - ./client/package.json:/client/package.json
             - ./client/node_modules:/client/node_modules
