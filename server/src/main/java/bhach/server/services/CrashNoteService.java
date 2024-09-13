@@ -16,8 +16,8 @@ public class CrashNoteService {
         return crashNoteRepository.findAll(pageable);
     }
 
-    public Page<CrashNote> searchNotesPagination(String query, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public Page<CrashNote> searchNotesPagination(String query, int page) {
+        Pageable pageable = PageRequest.of(page, 12);
         return crashNoteRepository.searchNotes(query, pageable);
     }
 }
