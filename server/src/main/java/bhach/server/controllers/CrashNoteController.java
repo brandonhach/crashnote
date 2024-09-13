@@ -93,9 +93,9 @@ public class CrashNoteController {
     @GetMapping("/search/{query}")
     public ResponseEntity<Page<CrashNote>> searchNotes(
             @RequestParam String query,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        Page<CrashNote> results = crashNoteService.searchNotesPagination(query, page, size);
+            @RequestParam(defaultValue = "0") int page
+          ) {
+        Page<CrashNote> results = crashNoteService.searchNotesPagination(query, page );
         return ResponseEntity.ok(results);
     }
 }
